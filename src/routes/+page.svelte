@@ -27,7 +27,7 @@
     <article>
       <h3>{article.title}</h3>
       <p>{article.content}</p>
-      <small>Created by {article.username} at {article.createdAt.toLocaleTimeString()}</small>
+      <small>Created by <u>{article.username}</u> at <u>{article.createdAt.toLocaleTimeString()}</u></small>
     </article>
   {/each}
 </div>
