@@ -5,7 +5,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Install packages
-COPY bun.lockb package.json ./
+COPY bun.lock package.json ./
 RUN bun install
 
 # Build application
