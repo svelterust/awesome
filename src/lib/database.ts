@@ -1,12 +1,11 @@
 import * as schema from "$lib/schema";
-import { env } from "$env/dynamic/private";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 
 // Create database
 const config = {
-  url: env.TURSO_DATABASE_URL ?? "file:database.db",
-  authToken: env.TURSO_AUTH_TOKEN,
+  url: process.env.TURSO_DATABASE_URL ?? "file:database.db",
+  authToken: process.env.TURSO_AUTH_TOKEN,
 };
 const client = createClient(config);
 export const db = drizzle(client, { schema });
@@ -23,6 +22,6 @@ if (config.url.startsWith("file:")) {
   `);
 }
 
-// Run migrations automatically, remove if using Cloudflare Pages
+// Run migrations automatically
 const { migrate } = await import("drizzle-orm/libsql/migrator");
 await migrate(db, { migrationsFolder: "migrations" });
