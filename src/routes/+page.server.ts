@@ -1,10 +1,20 @@
 import { db } from "$lib/database";
-import { article } from "$lib/schema";
+import { article, user } from "$lib/schema";
 import { error, redirect } from "@sveltejs/kit";
+import { eq } from "drizzle-orm";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
-  const articles = await db.select().from(article).orderBy(article.createdAt);
+  const articles = await db
+    .select({
+      title: article.title,
+      content: article.content,
+      createdAt: article.createdAt,
+      username: user.name,
+    })
+    .from(article)
+    .leftJoin(user, eq(article.userId, user.id))
+    .orderBy(article.createdAt);
   return { articles };
 };
 
