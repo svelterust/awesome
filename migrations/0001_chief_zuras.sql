@@ -1,0 +1,1 @@
+ALTER TABLE `article` ADD `userId` text NOT NULL REFERENCES user(id);
