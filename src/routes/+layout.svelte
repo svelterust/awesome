@@ -15,38 +15,16 @@
     <li><strong>Awesome</strong></li>
   </ul>
   <ul>
-    <li>
-      <div>
-        {#if $session.data}
-          <div>
-            <p>
-              {$session?.data?.user.name}
-            </p>
-            <button
-              onclick={async () => {
-                await authClient.signOut();
-              }}
-            >
-              Sign Out
-            </button>
-          </div>
-        {:else}
-          <button
-            onclick={async () => {
-              await authClient.signIn.social({
-                provider: "github",
-              });
-            }}
-          >
-            Login
-          </button>
-        {/if}
-      </div>
-    </li>
+    {#if $session.data}
+      <li>{$session.data.user.name}</li>
+      <li><button onclick={() => authClient.signOut()}>Sign Out</button></li>
+    {:else}
+      <li><button onclick={() => authClient.signIn.social({ provider: "github" })}>Login</button></li>
+    {/if}
   </ul>
 </nav>
 
-<main class="container mt:2em">
+<main class="container">
   {@render children()}
 </main>
 
