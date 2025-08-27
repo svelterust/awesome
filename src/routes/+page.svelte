@@ -1,5 +1,5 @@
 <script lang="ts">
-  const items = [
+  const items = $state([
     {
       title: "The Rise of AI in Everyday Life",
       content: "Artificial intelligence is transforming how we work, communicate, and solve problems in ways we never imagined.",
@@ -18,19 +18,19 @@
       likes: 156,
       comments: 23,
     },
-  ];
+  ]);
 </script>
 
 <h1>Articles</h1>
 <p>Explore the latest news and insights on various topics.</p>
-<div class="grid-cols:3 gap-x:1em mt:1em">
+<div class="grid-cols:2@sm grid-cols:3@lg gap-x:1em mt:1em">
   {#each items as item}
     <article>
       <h3>{item.title}</h3>
       <p>{item.content}</p>
       <footer class="grid-cols:2 gap:1em">
-        <button>Like {item.likes}</button>
-        <button class="secondary">Comment {item.comments}</button>
+        <button onclick={() => item.likes++}>Like {item.likes}</button>
+        <button onclick={() => item.comments++} class="secondary">Comment {item.comments}</button>
       </footer>
     </article>
   {/each}
