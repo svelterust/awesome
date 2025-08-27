@@ -25,7 +25,7 @@
 <div class="grid-cols:2@sm grid-cols:3@lg gap-x:1em mt:1em">
   {#each data.articles as article}
     <article>
-      <h3>{article.title}</h3>
+      <h2>{article.title}</h2>
       <p>{article.content}</p>
       <small>Created by <u>{article.username}</u> at <u>{article.createdAt.toLocaleTimeString()}</u></small>
     </article>
