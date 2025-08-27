@@ -1,10 +1,25 @@
 import config from "../master.css";
 import { render } from "@master/css-server";
 import { auth } from "$lib/auth";
+import { files } from "$lib/files";
 import { svelteKitHandler } from "better-auth/svelte-kit";
 import { building } from "$app/environment";
 import { sequence } from "@sveltejs/kit/hooks";
 import type { Handle } from "@sveltejs/kit";
+
+const filesHandler: Handle = async ({ event, resolve }) => {
+  if (event.url.pathname.startsWith("/files/")) {
+    const path = event.url.pathname.slice(7);
+    try {
+      const stream = await files.read(path);
+      // @ts-ignore
+      return new Response(stream);
+    } catch (error) {
+      return new Response("File not found", { status: 404 });
+    }
+  }
+  return resolve(event);
+};
 
 const cssHandler: Handle = async ({ event, resolve }) => {
   return await resolve(event, {
@@ -24,4 +39,4 @@ const authHandler: Handle = async ({ event, resolve }) => {
   return svelteKitHandler({ event, resolve, auth, building });
 };
 
-export const handle = sequence(authHandler, cssHandler);
+export const handle = sequence(filesHandler, authHandler, cssHandler);

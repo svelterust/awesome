@@ -10,7 +10,10 @@
     <article>
       <h3>{article.title}</h3>
       <p>{article.content}</p>
-      <small>Created <u>{article.createdAt.toLocaleString()}</u></small>
+      <footer class="grid-cols:2 gap:0.75em">
+        <button>Like</button>
+        <button class="secondary">Comment</button>
+      </footer>
     </article>
   {/each}
 </div>
