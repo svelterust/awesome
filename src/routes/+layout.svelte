@@ -12,14 +12,15 @@
 
 <nav class="container">
   <ul>
-    <li><strong>Awesome</strong></li>
+    <li><a href="/"><h3>Awesome</h3></a></li>
   </ul>
   <ul>
     {#if $session.data}
       <li>{$session.data.user.name}</li>
       <li><button onclick={() => authClient.signOut()}>Sign Out</button></li>
     {:else}
-      <li><button onclick={() => authClient.signIn.social({ provider: "github" })}>Login</button></li>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
     {/if}
   </ul>
 </nav>
