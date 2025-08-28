@@ -7,6 +7,7 @@ import { sveltekitCookies } from "better-auth/svelte-kit";
 
 export const auth = betterAuth({
   baseURL: env.ORIGIN ?? "http://localhost:5173",
+  secret: env.SECRET ?? "“better-auth-secret-123456789",
   database: drizzleAdapter(db, {
     provider: "sqlite",
   }),
