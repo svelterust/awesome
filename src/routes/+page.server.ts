@@ -1,7 +1,7 @@
 import { db } from "$lib/database";
 import { article, user } from "$lib/schema";
-import { error, redirect } from "@sveltejs/kit";
-import { eq } from "drizzle-orm";
+import { error, fail, redirect } from "@sveltejs/kit";
+import { eq, desc } from "drizzle-orm";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async () => {
     })
     .from(article)
     .leftJoin(user, eq(article.userId, user.id))
-    .orderBy(article.createdAt);
+    .orderBy(desc(article.createdAt));
   return { articles };
 };
 
@@ -29,7 +29,15 @@ export const actions: Actions = {
 
     // Create new article
     if (!user) error(403);
-    await db.insert(article).values({ title, content, userId: user.id });
+    try {
+      await db.insert(article).values({ title, content, userId: user.id });
+    } catch (error) {
+      return fail(500, {
+        title,
+        content,
+        error: "Failed to create article. Try again later!",
+      });
+    }
     redirect(303, "/");
   },
 };

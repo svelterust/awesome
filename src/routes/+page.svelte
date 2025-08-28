@@ -1,13 +1,28 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
+
   // Props
-  const { data } = $props();
+  const { data, form } = $props();
+
+  // State
+  let loading = $state(false);
 </script>
 
 <h1>Articles</h1>
 <p>Explore the latest news and insights on various topics.</p>
 
 {#if data.user}
-  <form method="POST" class="max-w:640px">
+  <form
+    method="POST"
+    class="max-w:640px"
+    use:enhance={() => {
+      loading = true;
+      return async ({ update }) => {
+        await update();
+        loading = false;
+      };
+    }}
+  >
     <label>
       Title
       <input name="title" placeholder="Title" />
@@ -18,7 +33,17 @@
       <textarea name="content" placeholder="Content" rows="4"></textarea>
     </label>
 
-    <button type="submit">Create article</button>
+    <button type="submit" aria-busy={loading} disabled={loading}>
+      {#if loading}
+        Creating article...
+      {:else}
+        Create article
+      {/if}
+    </button>
+
+    {#if form?.error}
+      <p class="text:red">{form?.error}</p>
+    {/if}
   </form>
 {/if}
 
