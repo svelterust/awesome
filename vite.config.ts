@@ -6,7 +6,7 @@ import masterCSS from "@master/css.vite";
 export default defineConfig({
   plugins: [
     sveltekit(),
-    masterCSS({ mode: "progressive" }),
+    masterCSS({ mode: "pre-render" }),
     svelteInspector({
       toggleKeyCombo: "shift-meta",
     }),
