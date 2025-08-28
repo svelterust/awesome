@@ -8,6 +8,11 @@
   let loading = $state(false);
 </script>
 
+<svelte:head>
+  <title>Login - Awesome</title>
+  <meta name="description" content="Login to this awesome website" />
+</svelte:head>
+
 <h1>Login</h1>
 
 <form

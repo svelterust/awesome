@@ -8,6 +8,11 @@
   let loading = $state(false);
 </script>
 
+<svelte:head>
+  <title>Awesome</title>
+  <meta name="description" content="Awesome articles that you can read about." />
+</svelte:head>
+
 <h1>Articles</h1>
 <p>Explore the latest news and insights on various topics.</p>
 
