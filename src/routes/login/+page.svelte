@@ -17,7 +17,6 @@
 
 <form
   method="POST"
-  class="max-w:640px"
   use:enhance={() => {
     loading = true;
     return async ({ update }) => {
