@@ -1,6 +1,6 @@
+import { auth } from "$lib/auth";
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
-import { auth } from "$lib/auth";
 
 export const actions: Actions = {
   default: async ({ request }) => {
@@ -13,7 +13,7 @@ export const actions: Actions = {
 
     // Register user
     try {
-      const data = await auth.api.signInEmail({
+      await auth.api.signInEmail({
         body: {
           email,
           password,
@@ -21,7 +21,6 @@ export const actions: Actions = {
         },
         headers: request.headers,
       });
-      console.info("Logged in user:", data);
     } catch (error) {
       console.error("Login error:", error);
       return fail(500, {

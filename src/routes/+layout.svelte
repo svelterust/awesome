@@ -1,8 +1,7 @@
 <script lang="ts">
   import "@master/css";
   import "@fontsource/geist-sans";
-  import { authClient } from "$lib/session";
-  import { goto, invalidateAll } from "$app/navigation";
+  import { goto } from "$app/navigation";
 
   // Props
   const { data, children } = $props();
@@ -16,12 +15,7 @@
     {#if data.user}
       <li>{data.user.name}</li>
       <li>
-        <button
-          onclick={async () => {
-            await authClient.signOut();
-            await goto("/", { invalidateAll: true });
-          }}>Sign Out</button
-        >
+        <button onclick={() => goto("/logout", { invalidateAll: true })} data-sveltekit-reload>Sign Out</button>
       </li>
     {:else}
       <li><a href="/login">Login</a></li>

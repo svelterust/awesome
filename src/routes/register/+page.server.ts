@@ -1,6 +1,6 @@
+import { auth } from "$lib/auth";
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
-import { auth } from "$lib/auth";
 
 export const actions: Actions = {
   default: async ({ request }) => {
@@ -21,7 +21,6 @@ export const actions: Actions = {
           password,
         },
       });
-      console.info("Created user:", data);
     } catch (error) {
       console.error("Sign up error:", error);
       return fail(500, {
